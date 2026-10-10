@@ -1,19 +1,15 @@
+import { useRuntimeConfig } from 'nuxt/app'
+import { $fetch } from 'ofetch'
+
 export const useApi = () => {
   const config = useRuntimeConfig()
+  const apiBase = typeof config.public.apiBase === 'string' ? config.public.apiBase : undefined
 
   const api = $fetch.create({
-    baseURL: config.public.apiBase,
-
-    onRequest({ options }) {
-      const token = useCookie('auth_token')
-
-      if (token.value) {
-        options.headers = {
-          ...options.headers,
-          Authorization: `Bearer ${token.value}`,
-          Accept: 'application/json'
-        }
-      }
+    baseURL: apiBase,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
     }
   })
 

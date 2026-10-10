@@ -1,34 +1,27 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
+import process from 'node:process'
 import { defineNuxtConfig } from 'nuxt/config'
 
+// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: '2026-08-23',
-
-    modules: [
-      '@nuxt/content',
-      '@nuxt/eslint',
-      '@nuxt/ui',
-      '@artmizu/nuxt-prometheus',
-      '@morev/vue-transitions',
-      '@mojocss/nuxt',
-      '@maz-ui/nuxt',
-      '@nuxtjs/google-fonts',
-      '@nuxtjs/ionic',
-      '@vue-api/nuxt',
-      'dayjs-nuxt',
-      'nuxt-api-party',
-      'nuxt-google-auth',
-      'nuxt-icon-tw',
-      'nuxt-icons',
-    ],
+  compatibilityDate: '2025-07-15',
+  devtools: { enabled: true },
+  modules: [
+    '@nuxt/ui',
+    ['@nuxtjs/color-mode', {
+      preference: 'system',
+      fallback: 'light',
+      classSuffix: ''
+    }]
+  ],
 
   runtimeConfig: {
     public: {
+      // apiBase: 'http://localhost:8000/api'
       apiBase: process.env.NUXT_PUBLIC_API_BASE
     }
   },
 
-  devtools: {
-    enabled: true
+  typescript: {
+    strict: true
   }
 })
