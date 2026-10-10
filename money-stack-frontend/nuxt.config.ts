@@ -7,17 +7,21 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
     '@nuxt/ui',
-    ['@nuxtjs/color-mode', {
-      preference: 'system',
-      fallback: 'light',
-      classSuffix: ''
-    }]
+    '@nuxtjs/color-mode',
   ],
 
+  colorMode: {
+    preference: 'system',
+    fallback: 'light',
+    classSuffix: '',
+  },
+
+  css: ['../assets/css/main.css'],
+  
   runtimeConfig: {
     public: {
-      // apiBase: 'http://localhost:8000/api'
-      apiBase: process.env.NUXT_PUBLIC_API_BASE
+      apiBase: 'http://localhost:8000/api'
+      // apiBase: process.env.NUXT_PUBLIC_API_BASE
     }
   },
 

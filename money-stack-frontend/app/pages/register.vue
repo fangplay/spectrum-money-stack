@@ -1,4 +1,8 @@
 <script setup lang="ts">
+
+import { useAuth } from '../../../composables/useAuth'
+import { useApi } from '../../../composables/useApi'
+
 const { register, loading, error } = useAuth()
 
 const form = reactive({
@@ -18,7 +22,22 @@ const submit = async () => {
 
     success.value = true
 
-    await navigateTo('/')
+    const response = await api('/register', {
+      method: 'POST',
+      body: {
+        name: name.value,
+        email: email.value,
+        password: password.value,
+        password_confirmation: passwordConfirmation.value,
+      },
+    })
+
+    if (response.token) {
+      login(response.token)
+      await navigateTo('/')
+    } else {
+      await navigateTo('/login')
+    }
   } catch {
     // Error is handled by useAuth()
   }
